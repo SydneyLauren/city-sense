@@ -2,16 +2,18 @@
 <html>
 <head>
 <title>{{ pagetitle.name }}</title>
+
 <meta charset="utf-8">
   <script type="text/javascript"
           src="{{ url_for('static', filename='jquery.js') }}">
   </script>
   <script type="text/javascript"
-        src="{{ url_for('static', filename='app6.js') }}">
+        src="{{ url_for('static', filename='app_IR.js') }}">
   </script>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style7.css') }}" />
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style_IR.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/style-desktop1.css') }}" />
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/5grid/core.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/5grid/core2.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/5grid/core-desktop.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/5grid/core-noscript.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/5grid/core-1200px.css') }}" />
@@ -22,32 +24,38 @@
 <body>
 
 <!-- Header -->
-<div id="header-wrapper">
+<div id="header-wrapper" >
+  <!-- <h1><a href="/" style="background: url('{{ url_for('static', filename='img/carpedm20_1_web.png') }}') left center no-repeat; background-size: 130px">carpedm20</a></h1> -->
   <header id="header" class="5grid-layout">
     <div class="row">
       <div class="12u">
         <!-- Logo -->
         <h1 class="mobileUI-site-name"><a href="#">{{ pagetitle.name }}</a></h1>
+
         <!-- Nav -->
         <!--nav class="mobileUI-site-nav"> <a href="index.html">Homepage</a> <a href="threecolumn.html">Three Column</a> <a href="twocolumn1.html">Two Column #1</a> <a href="twocolumn2.html">Two Column #2</a> <a href="onecolumn.html">One Column</a> </nav>-->
       </div>
     </div>
   </header>
+  <div class="5grid-layout">
+  <hh1>{{ intro.txt }}</hh1>
+</div>
   <div id="banner">
     <div class="5grid-layout">
       <div class="row">
 
         <div class="6u">
           <!-- Banner Copy -->
-          <p>{{ intro.txt }}</p>
+
             <div id="features">
               <section>
-                <h2>Send me somewhere ...</h2>
+                <hh2 >Send me somewhere that feels ... </hh2>
                 <h2>   </h2>
               </section>
             </div>
-
+            <hh3>
             <form action="{{ url_for('solve') }}" method="post">
+
               <input type="checkbox" id="chk1" name="chk1" value="chk1">relaxing & peaceful<br>
               <input type="checkbox" id="chk2" name="chk2" value="chk2">entertaining & fun<br>
               <input type="checkbox" id="chk3" name="chk3" value="chk3">intellectual & educational<br>
@@ -55,7 +63,9 @@
               <input type="checkbox" id="chk5" name="chk5" value="chk5">uplifting & positive<br>
               <input type="checkbox" id="chk6" name="chk6" value="chk6">friendly & social<br>
               <input type="checkbox" id="chk7" name="chk7" value="chk7">thought-provoking & profound<br>
+
               <input type="checkbox" id="chk8" name="chk8" value="chk8">artsy & creative<br>
+
               <input type="checkbox" id="chk9" name="chk9" value="chk9">surreal & otherwordly<br>
               <input type="checkbox" id="chk10" name="chk10" value="chk10">accepting & tolerant<br>
               <input type="checkbox" id="chk11" name="chk11" value="chk11">funny & amusing<br>
@@ -63,19 +73,45 @@
               <input type="checkbox" id="chk13" name="chk13" value="chk13">lively & energetic<br>
               <input type="checkbox" id="chk14" name="chk14" value="chk14">natural & earthy<br>
               <input type="checkbox" id="chk15" name="chk15" value="chk15">chic & sophisticated<br>
-
               <button type="button" id="solve" class="button-big">Let's go!</button>
             </form>
-
+          </hh3>
         </div>
 
         <div class="6u">
           <!-- Banner Image -->
-          <a href="#" class="bordered-feature-image"><img src="{{ url_for('static', filename='images/city_sample2.jpg') }}" alt=""></a> </div>
+          <a href="#" class="bordered-feature-image"><img id="map" src="{{ url_for('static', filename='images/citymap_baseline.png') }}" alt=""></a> </div>
       </div>
     </div>
   </div>
 </div>
+<!-- Content -->
+<div id="content-wrapper">
+  <div id="content">
+    <div class="5grid-layout">
+      <div class="row">
+        <div class="3u">
+          <!-- Box #1 -->
+            <section> <a href="#" class="cropped"><img id="city1pic" alt=""></a> </section>
+        </div>
+        <div class="3u">
+          <!-- Box #2 -->
+          <section> <a href="#" class="cropped"><img id="city2pic" alt=""></a> </section>
+
+        </div>
+        <div class="3u">
+          <!-- Box #3 -->
+          <section> <a href="#" class="cropped"><img id="city3pic" alt=""></a> </section>
+        </div>
+        <div class="3u">
+          <!-- Box #3 -->
+          <section> <a href="#" class="cropped"><img id="city4pic" alt=""></a> </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Features -->
 <div id="features-wrapper">
   <div id="features">
@@ -83,36 +119,37 @@
       <div class="row">
         <div class="3u">
           <!-- Feature #1 -->
-          <section> <a href="#" class="bordered-feature-image"><img src="images/pic01.jpg" alt=""></a>
-            <hh> <span id="city1"></span> </hh>
-            <p> Text summary of city 1 </p>
+          <section>
+            <hh> <span id="city1" class="padded"></span> </hh>
+            <p> <span id="c1text" class="italicize"></span> </p>
           </section>
         </div>
         <div class="3u">
           <!-- Feature #2 -->
-          <section> <a href="#" class="bordered-feature-image"><img src="images/pic02.jpg" alt=""></a>
-            <hh> <span id="city2"></span> </hh>
-            <p> Text summary of city 2 </p>
+          <section>
+            <hh> <span id="city2" class="padded"></span> </hh>
+            <p> <span id="c2text" class="italicize"></span> </p>
           </section>
         </div>
         <div class="3u">
           <!-- Feature #3 -->
-          <section> <a href="#" class="bordered-feature-image"><img src="images/pic03.jpg" alt=""></a>
-            <hh> <span id="city3"></span> </hh>
-            <p> Text summary of city 3 </p>
+          <section>
+            <hh> <span id="city3" class="padded"></span> </hh>
+            <p><span id="c3text" class="italicize"></span></p>
           </section>
         </div>
         <div class="3u">
           <!-- Feature #4 -->
-          <section> <a href="#" class="bordered-feature-image"><img src="images/pic04.jpg" alt=""></a>
-            <hh> <span id="city4"></span> </hh>
-            <p> Text summary of city 4 </p>
+          <section>
+            <hh> <span id="city4" class="padded"></span> </hh>
+            <p> <span id="c4text" class="italicize"></span> </p>
           </section>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!-- Content -->
 
 <!-- Copyright -->
 <div id="copyright"> &copy; Untitled. All rights reserved. | Design: <a target="_blank" href="http://html5up.net">HTML5 Up!</a> | Images: <a target="_blank" href="http://fotogrph.com">Fotogrph</a> </div>

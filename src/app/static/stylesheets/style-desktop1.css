@@ -17,7 +17,10 @@ section:last-child
 
 	#header-wrapper
 	{
-		background: #3B4346 url('images/bg01.jpg');
+		background: #3B4346 url('images/bg015.jpg');
+		/*background: #3B4346 url("{{ url_for('static', filename='../images/bg01.jpg') }}");*/
+		/*background-image: {{ url_for('static', filename='images/bg01.jpg') }};*/
+		/*background-image: url({{ url_for('static', filename='images/bg01.jpg') }});*/
 		border-bottom: solid 1px #272d30;
 		box-shadow: inset 0px -1px 0px 0px #51575a;
 		text-shadow: -1px -1px 1px rgba(0,0,0,0.75);
@@ -26,27 +29,39 @@ section:last-child
 	.subpage #header-wrapper
 	{
 		height: 155px;
+		background: #3B4346 url('images/bg015.jpg');
 	}
 
 	#features-wrapper
 	{
-		background: #353D40 url('images/bg02.jpg');
-		border-bottom: solid 1px #272e31;
+		/*background: #353D40 url('images/bg01.jpg');*/
+		background: #3B4346 url('images/bg04.jpg');
+
+		/*border-bottom: solid 1px #272e31;*/
 		padding: 45px 0 45px 0;
 		text-shadow: -1px -1px 1px rgba(0,0,0,0.75);
+
+
 	}
 
 	#content-wrapper
 	{
-		background: #f7f7f7 url('images/bg04.png');
+		background: #3B4346 url('images/bg04.jpg');
+		/*background: #f7f7f7 url('images/bg01.jpg');*/
+		/*border-top: solid 1px #fff;*/
+		padding: 35px 0 35px 0;
+		/*background: #f7f7f7 url('images/bg04.png');
 		border-top: solid 1px #fff;
-		padding: 45px 0 45px 0;
+		padding: 45px 0 45px 0;*/
 	}
 
 	#footer-wrapper
 	{
+		/*padding: 45px 0 45px 0;
+		text-shadow: 1px 1px 1px rgba(255,255,255,1);*/
+		background: #f7f7f7 url('images/bg04.png');
+		border-top: solid 1px #fff;
 		padding: 45px 0 45px 0;
-		text-shadow: 1px 1px 1px rgba(255,255,255,1);
 	}
 
 /* Header */
@@ -61,7 +76,8 @@ section:last-child
 		{
 			position: absolute;
 			left: 0;
-			bottom: 35px;
+			bottom: 15px;
+			/*top: 55px;*/
 			font-family: 'Lobster', sans-serif;
 			font-size: 2.75em;
 			color: #81D8D0;
@@ -152,9 +168,9 @@ section:last-child
 
 		#content section
 		{
-			background: #fff;
+			/*background: #fff;*/
 			padding: 40px 30px 45px 30px;
-			box-shadow: 2px 2px 2px 1px rgba(128,128,128,0.1);
+			/*box-shadow: 2px 2px 2px 1px rgba(128,128,128,0.1);*/
 			margin: 0 0 10% 0;
 		}
 
@@ -162,7 +178,7 @@ section:last-child
 		{
 			font-size: 1.8em;
 			color: #373f42;
-			margin: 0.25em 0 0.25em 0;
+			margin: 0em 0 0.25em 0;
 		}
 
 		#content h3
@@ -185,6 +201,7 @@ section:last-child
 
 	#footer
 	{
+
 		color: #546b76;
 		text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
 	}
