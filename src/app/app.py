@@ -29,7 +29,6 @@ sent_bodies = sentence_df['description'].values
 
 cities = cities_df.index.values
 sent_cities = sentence_df.index.values
-print cities
 
 X = tfidf.fit_transform(doc_bodies)
 
@@ -84,10 +83,10 @@ def plot_personality_map(m, cosine_similarities, xpts, ypts, citylist, image_num
 
 
 def get_city_image(cities):
-    return ['static/images/city_images/{}.png'.format(city) for city in cities]
+    return ['static/images/city_images_3/{}.png'.format(city) for city in cities]
 
 
-with open('../../data/personalities_R02.txt') as f:
+with open('../../data/personalities_R03.txt') as f:
     for line in f:
         kv_split = line.split(': ')
         personality_dict[kv_split[0]] = kv_split[1].strip('\n').split(', ')
@@ -121,7 +120,6 @@ def solve():
     top_cities = [cities[n] for n in top4]
 
     image_paths = get_city_image(top_cities)
-    print image_paths
     sentence = []
     for i, num in enumerate(top4):
         s_array = re.split('[.!]', sent_bodies[num])
@@ -139,7 +137,7 @@ def solve():
                 top_sentence = s
         sentence.append('"{}"'.format(top_sentence.strip()))
     print 'trying to plot'
-    
+
     image_filename = plot_personality_map(m, cos_sims[:, 0], coords[:, 0], coords[:, 1], cities, imagenum)
     print image_filename
     return jsonify({'city_1': top_cities[0], 'city_2': top_cities[1],
