@@ -19,6 +19,8 @@ Read json files into dictionary where city names are the keys and text from revi
 3. Vectorize using nltk TfidfVectorizer and compute cosine similarities between predetermined sets of personality words.
 4. Make it live! Create web app in which user can select the character traits that they want a city to have and see the results.
 
+![](images/Pipeline.png)
+
 ### Modeling
 The results of the exploratory data analysis were used to determine the stop words and get ideas for the types of personalities that a city can have. sklearn TfidfVectorizer was used to vecorize the documents with stop words removed as well as the personalities. Cosine similarity was used to find the city that best matches each personality.
 
