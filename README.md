@@ -1,7 +1,7 @@
 # City Sense
-Identify a city’s mood to provide insight to travelers
+Using NLP to identify the personalities of European cities
 
-![](src/final_model/mapimage_000000000000001.png)
+![](images/Map_Image_Sample.png)
 
 ### Business Understanding
 Before a trip, travelers can find all sorts of information about what to do and where to stay at their destination, but it can be difficult to get a sense of a city’s ambience or feeling. This project will focus on identifying the personalities of European cities to provide insight to potential visitors.
@@ -20,10 +20,10 @@ Read json files into dictionary where city names are the keys and text from revi
 4. Make it live! Create web app in which user can select the character traits that they want a city to have and see the results.
 
 ### Modeling
-The results of the exploratory data analysis will be used to determine which stop words and/or parts of speech will be removed from the dataset. The stop words and number of features will be refined until the model produces a collection of words for each city that identify its personality.  Personality traits may include characteristics like ‘intellectual,’ ‘peaceful,’ ‘down-to-earth’, ‘spiritual,’ ‘friendly’ etc.
+The results of the exploratory data analysis were used to determine the stop words and get ideas for the types of personalities that a city can have. sklearn TfidfVectorizer was used to vecorize the documents with stop words removed as well as the personalities. Cosine similarity was used to find the city that best matches each personality.
 
 ### Evaluation
-The model will be evaluated by extracting the top features for randomly selected cities in the corpus and checking them for their relevance in describing personality. The evaluation and modeling will be done iteratively.  A potential problem is that I may not arrive at a model which can successfully pull meaningful features that identify a city’s personality.  If this is the case after many iterations, I will need to change the scope of my project to work with the data I have or abandon it altogether.
+Since this is an unsupervised learning model on text data, there is not a mathematical way to assess the validity of the model. I evaluated my model by creating a survey of the subset of the cities represented in my corpus, and collected results from people who have experienced those cities.
 
 ### Deployment
-The project will be deployed as a web app in which the user can input city and find out about the atmosphere there or input conditions (‘relaxing’, ‘vibrant’, ‘friendly’ etc) and get a list of cities that meet their criteria.
+The model is deployed as a web app at sydney.center.
