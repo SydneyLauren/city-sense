@@ -141,6 +141,7 @@ def generate_basemap(cities):
     OUTPUT: pickled basemap object and text file containing basemap coordinates for cities
     generate a basemap object and list of city basemap coordinates for future plotting
     '''
+    fig = plt.figure(figsize=(19, 9))
     # m = Basemap(projection='stere', lon_0=5, lat_0=72.0, rsphere=6371200., llcrnrlon=-15.0,
     #             urcrnrlon=74.0, llcrnrlat=32.0, urcrnrlat=55.0, resolution='l')
     m = Basemap(projection='stere', lon_0=5, lat_0=60.0, rsphere=6371200., llcrnrlon=-15.0,
@@ -158,8 +159,8 @@ def generate_basemap(cities):
             location = geolocator.geocode(city, timeout=10)
             xpt, ypt = m(location.longitude, location.latitude)
             f.write('{}|{}|{}\n'.format(city, xpt, ypt))
-    plt.plot(xpts, ypts, '.', markersize=13, color='#81D8D0', alpha=0.8)
-    plt.savefig('app/static/images/citymap_baseline.png')
+            plt.plot(xpt, ypt, '.', markersize=13, color='#81D8D0', alpha=0.8)
+    plt.savefig('app/static/images/citymap_baseline.png', bbox_inches='tight')
 
 
 if __name__ == '__main__':
@@ -167,8 +168,8 @@ if __name__ == '__main__':
     # rs_dict = json_to_dict('../data/ricksteves_articles_blogs_R01.json')
     # ta_dict = json_to_dict('../data/europe_city_reviews2.json')
 
-    rs_dict = json_to_dict('scraping/ricksteves_articles_blogs_R02.json')
-    ta_dict = json_to_dict('scraping/ta_combined4.json')
+    rs_dict = json_to_dict('../data/ricksteves_articles_blogs_R02.json')
+    ta_dict = json_to_dict('../data/ta_combined4.json')
 
     # rs_dict = json_to_dict('scraping/')
     # combine dictionaries
@@ -185,8 +186,8 @@ if __name__ == '__main__':
 
     # remove cities which contain little or no text
     europe_dict['Belfast, Northern Ireland'] = europe_dict['Belfast, England']
-    europe_dict_comp['Belfast, Northern Ireland'] = europe_dict['Belfast, England']
-    remove_cities = ['Ostrava, Czech Republic', 'Belfast, England']
+    europe_dict_comp['Belfast, Northern Ireland'] = europe_dict_comp['Belfast, England']
+    remove_cities = ['Ostrava, Czech Republic', 'Belfast, England', 'Tetovo, Macedonia']
     europe_dict = {key: value for key, value in europe_dict.items() if len(value) > 200 and key not in remove_cities}
     europe_dict_comp = {key: value for key, value in europe_dict_comp.items() if key in europe_dict}
 
