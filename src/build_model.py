@@ -1,25 +1,17 @@
 import json
 import pandas as pd
 from collections import defaultdict
-from collections import Counter
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer, TfidfTransformer
 from nltk.corpus import wordnet as wn
 from nltk.tag import pos_tag
 from nltk.corpus import stopwords
-from sklearn.cluster import KMeans
 import string
 import matplotlib.pyplot as plt
 from nltk.tokenize import word_tokenize
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.metrics.pairwise import linear_kernel
 from geopy.geocoders import Nominatim
 import pickle
 from mpl_toolkits.basemap import Basemap
-from nltk.stem.wordnet import WordNetLemmatizer
-from nltk.stem.porter import PorterStemmer
-from nltk.stem.snowball import SnowballStemmer
-import itertools
 import numpy.linalg as LA
 import unicodedata
 
@@ -88,14 +80,24 @@ def combine_dictionaries(dict1, dict2):
     return merged_dict
 
 
-def generate_dataframe(d, name):
-    df = pd.DataFrame.from_dict(d, orient='index', dtype=None)
+def generate_dataframe(dictionary, name):
+    '''
+    INPUT: dictionary, file name
+    OUTPUT: DataFrame
+    take a dictionary and convert to dataframe and pickle it
+    '''
+    df = pd.DataFrame.from_dict(dictionary, orient='index', dtype=None)
     df.columns = ['description']
     df.to_pickle(name)
     return df
 
 
 def get_stopwords(speech_dicts, doc_frequency, word_pos, greater_than=True):
+    '''
+    INPUT: dictionary, file name
+    OUTPUT: DataFrame
+    take a dictionary and convert to dataframe and pickle it
+    '''
     vals = speech_dicts[word_pos].values()
     wds = np.array(speech_dicts[word_pos].keys())
     doc_freqs = np.array([len(set(val)) for val in vals])
@@ -106,6 +108,11 @@ def get_stopwords(speech_dicts, doc_frequency, word_pos, greater_than=True):
 
 
 def get_pos_dicts(tokenized_corpus):
+    '''
+    INPUT: tokenized_corpus
+    OUTPUT: part of speech dictionaries
+    take a tokenized corpus and separate into dictionaries by part of speech
+    '''
     noun_dict = defaultdict(list)
     verb_dict = defaultdict(list)
     adj_dict = defaultdict(list)
@@ -126,6 +133,11 @@ def get_pos_dicts(tokenized_corpus):
 
 
 def get_stopwords_count(speech_dicts, word_count, word_pos, greater_than=True):
+    '''
+    INPUT: part of speech dictionaries, word count limit, part of speech
+    OUTPUT: words outside of word count limit
+    return words outside of part of speech count
+    '''
     vals = speech_dicts[word_pos].values()
     wds = np.array(speech_dicts[word_pos].keys())
     word_counts = np.array([len(val) for val in vals])
@@ -142,15 +154,13 @@ def generate_basemap(cities):
     generate a basemap object and list of city basemap coordinates for future plotting
     '''
     fig = plt.figure(figsize=(19, 9))
-    # m = Basemap(projection='stere', lon_0=5, lat_0=72.0, rsphere=6371200., llcrnrlon=-15.0,
-    #             urcrnrlon=74.0, llcrnrlat=32.0, urcrnrlat=55.0, resolution='l')
     m = Basemap(projection='stere', lon_0=5, lat_0=60.0, rsphere=6371200., llcrnrlon=-15.0,
                 urcrnrlon=60.0, llcrnrlat=32.0, urcrnrlat=56.0, resolution='l')
-    m.drawcoastlines(linewidth=0.2)
-    m.drawcountries(linewidth=0.2)
-    m.drawmapboundary(fill_color='#2B3856')
+    # m.drawcoastlines(linewidth=0.2)
+    # m.drawcountries(linewidth=0.2)
+    # m.drawmapboundary(fill_color='#2B3856')
     # fill continents, set lake color same as ocean color.
-    m.fillcontinents(color='#786D5F', lake_color='#2B3856')
+    # m.fillcontinents(color='#786D5F', lake_color='#2B3856')
     pickle.dump(m, file('../data/base_map.pkl', 'w'))
     geolocator = Nominatim()
 
@@ -187,7 +197,7 @@ if __name__ == '__main__':
     # remove cities which contain little or no text
     europe_dict['Belfast, Northern Ireland'] = europe_dict['Belfast, England']
     europe_dict_comp['Belfast, Northern Ireland'] = europe_dict_comp['Belfast, England']
-    remove_cities = ['Ostrava, Czech Republic', 'Belfast, England', 'Tetovo, Macedonia']
+    remove_cities = ['Ostrava, Czech Republic', 'Belfast, England', 'Tetovo, Macedonia', 'Lorca, Spain']
     europe_dict = {key: value for key, value in europe_dict.items() if len(value) > 200 and key not in remove_cities}
     europe_dict_comp = {key: value for key, value in europe_dict_comp.items() if key in europe_dict}
 

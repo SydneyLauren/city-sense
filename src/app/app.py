@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 app = Flask(__name__)
 
 
-IMAGE_PATH = 'static/images/mapimage_{}.png'
+IMAGE_PATH = 'static/images/mapimg_{}.png'
 # load the dataframe that was built in build_model.py
 cities_df = pd.read_pickle('../../data/cities_dataframe.pkl')
 sentence_df = pd.read_pickle('../../data/sentence_dataframe.pkl')
@@ -58,18 +58,19 @@ def plot_personality_map(m, cosine_similarities, xpts, ypts, citylist, image_num
     n3 = 40
 
     alp[cs_sort[:n1]] = 1
-    alp[cs_sort[n1:n2]] = 0.50
+    alp[cs_sort[n1:n2]] = 0.0
     alp[cs_sort[n2:n3]] = 0.40
     alp[cs_sort[n3:]] = 0.2
 
-    fs[cs_sort[:n1]] = 10
-    fs[cs_sort[n1:n2]] = 8
+    fs[cs_sort[:n1]] = 13
+    fs[cs_sort[n1:n2]] = 10
     fs[cs_sort[n2:n3]] = 6
     fs[cs_sort[n3:]] = 4
     print 'plotting the points'
+    alignment = ['left', 'right']
     for i in xrange(len(xpts)):
         plt.plot(xpts[i], ypts[i], '.', markersize=sz[i], color='#81D8D0', alpha=alp[i])
-        plt.text(xpts[i], ypts[i], citylist[i], fontsize=int(fs[i]), alpha=alp[i], color=[1, 1, 1])
+        plt.text(xpts[i], ypts[i], citylist[i], fontsize=int(fs[i]), alpha=alp[i], color=[1, 1, 1], ha=alignment[i%2])
 
     m.drawcoastlines(linewidth=0.2)
     m.drawcountries(linewidth=0.2)
@@ -86,7 +87,7 @@ def get_city_image(cities):
     return ['static/images/city_images_3/{}.png'.format(city) for city in cities]
 
 
-with open('../../data/personalities_R03.txt') as f:
+with open('../../data/personalities_R05.txt') as f:
     for line in f:
         kv_split = line.split(': ')
         personality_dict[kv_split[0]] = kv_split[1].strip('\n').split(', ')
@@ -99,6 +100,16 @@ def index():
     return render_template('index.html',
                            intro=intro,
                            pagetitle=pagetitle)
+
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    return index()
+
+
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    return render_template('threecolumn.html')
 
 
 @app.route('/solve', methods=['GET', 'POST'])
@@ -122,17 +133,22 @@ def solve():
     image_paths = get_city_image(top_cities)
     sentence = []
     for i, num in enumerate(top4):
-        s_array = re.split('[.!]', sent_bodies[num])
+        s_array = re.split('[.!?]', sent_bodies[num])
         # r'(?<=\w)\.(?!\..)|!'
         # s_array = sent_bodies[num].split('.')
 
         s_match = 0
         top_sentence = ''
+        stopwds = ['Rick,', 'Gyugi']
         for s in s_array:
-            s = s.lstrip('read more ')
-            s = s.lstrip('More ')
+            s = s.replace('read more ', '')
+            s = s.replace('More ', '')
             slen = len(set(s.split()) & set(personality_list))
-            if slen > s_match:
+            forbidden = len(set(s.split()) & set(stopwds))
+            if slen > s_match and forbidden == 0:
+                s_match = slen
+                top_sentence = s
+            elif slen >= s_match and len(top_sentence) > 4 and len(s) < len(top_sentence) and len(s) > 75 and 'Gyugyi' not in s.split():
                 s_match = slen
                 top_sentence = s
         sentence.append('"{}"'.format(top_sentence.strip()))
