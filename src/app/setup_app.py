@@ -148,4 +148,4 @@ def get_city_image(cities):
     INPUT: cities
     OUTPUT: path to city images
     '''
-    return ['static/images/city_images_4/{}.png'.format(city) for city in cities]
+    return ['static/images/city_images/{}.png'.format(city) for city in cities]
