@@ -126,7 +126,6 @@ def top_city_sentence(top_inds, sent_bodies, personality_list):
         s_array = re.split('[.!?]', sent_bodies[num])
         s_match = 0
         top_sentence = ''
-        print len(set(personality_list))
         for s in s_array:
             s = s.replace('read more ', '').replace('More ', '')
             slen = len(set(s.split()) & set(personality_list))
