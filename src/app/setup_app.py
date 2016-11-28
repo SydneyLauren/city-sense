@@ -96,6 +96,8 @@ def get_map_image(cos_sims, cities, m, coords, user_data):
     if os.path.isfile('static/images/map_images/mapimg_{}.png'.format(imagenum)):
         return 'static/images/map_images/mapimg_{}.png'.format(imagenum)
     else:
+        if not os.path.exists('static/images/map_images/'):
+            os.makedirs('static/images/map_images/')
         return plot_personality_map(m, np.array(cos_sims[:, 0]), coords[:, 0], coords[:, 1],
                                     cities, imagenum, 'static/images/map_images/mapimg_{}.png')
     return image_file
