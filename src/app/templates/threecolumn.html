@@ -67,11 +67,11 @@
               <br/><br/> Data Preparation <br/><br/>
               For this project, I focused on doing natural language processing over trip advisor reviews and Rick Steves blog posts and articles. I scraped 72,000 total
                reviews and posts for about 200 cities in Europe, and then went through many iterations of exploratory data analysis, trying different stop words criteria,
-               and KMeans clustering on my data. I used scikit-learn’s TfidfVectorizer to create my model, and then deployed it as a web app.<br/><br/>
+               and KMeans clustering on my data. I used scikit-learn’s TfidfVectorizer and cosine similarity to create my model, and then deployed it as a web app.<br/><br/>
                <a href="#" class="bordered-feature-image"><img src="{{ url_for('static', filename='images/Project_Pipeline.png') }}" alt=""></a>
                Modeling <br/><br/>
-               In order to distill the corpus down to the most useful wordsI tagged each word by its part of speech and then deciding on upper and lower bounding criteria
-               for the most common parts of speech in terms of both document frequency and term frequency. Next, I decided on 15 different personalities based on what I
+               In order to distill the corpus down to the most useful words I tagged each word by its part of speech and then decided on upper and lower bounding criteria
+               for the most common parts of speech in terms of both document frequency and term frequency. Next, I chose 15 different personalities based on what I
                was seeing in my text and leveraging traits that showed up in personality profiles such as Myers Briggs. The text were vectorized using scikit-learn's
                TfidfVectorizer, and then I used cosine similarity to find the cities that best
                 matched the different personality types.
