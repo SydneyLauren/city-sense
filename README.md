@@ -1,13 +1,16 @@
-# City Sense
+## City Sense
 Using NLP to identify the personalities of European cities
 
-![](images/Map_Image_Sample.png)
+<img src="images/Map_Image_Sample.png" width="250">
+
 
 ### Business Understanding
-Before a trip, travelers can find all sorts of information about what to do and where to stay at their destination, but it can be difficult to get a sense of a city’s ambience or feeling. This project will focus on identifying the personalities of European cities to provide insight to potential visitors.
+Before a trip, travelers can find all sorts of information about what to do and where to stay at their destination, but it can be difficult to get a sense of a city’s ambience or feeling. This project uses natural language processing to identify the personalities of European cities and provide insight to potential visitors.
+
+<img src="images/NLTK.png" width="200">
 
 ### Data Understanding
-Existing datasets are not readily available, but first person anecdotes about European cities can be found on ricksteves.com and tripadvisor.com. I scraped the two sites for major cities in Europe and combined the text from all of the articles and reviews for a given city.
+First person anecdotes about European cities can be found on ricksteves.com and tripadvisor.com. I scraped the two sites for major cities in Europe and combined the text from all of the articles and reviews for a given city.
 
 ### Data Preparation
 The text data were cleaned of punctuation and non-ascii characters in order to process as a corpus using nltk. Exploratory data analysis was done to view the top features for different cities by term frequency and term frequency - inverse document frequency, over the complete documents and subsets of the documents separated by part of speech. The text were grouped by parts of speech and stop words criteria were generated for each part of speech in order to maintain the most useful text.
