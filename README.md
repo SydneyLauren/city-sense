@@ -5,7 +5,7 @@ Using NLP to identify the personalities of European cities
 
 
 ### Business Understanding
-Before a trip, travelers can find all sorts of information about what to do and where to stay at their destination, but it can be difficult to get a sense of a city’s ambience or feeling. This project uses natural language processing to identify the personalities of European cities and provide insight to potential visitors.
+Before a trip, travelers can find all sorts of information about what to do and where to stay at their destination, but it can be difficult to get a sense of a city’s ambience or feeling. This project uses natural language processing in python to identify the personalities of European cities and provide insight to potential visitors.
 
 ### Data Understanding
 First person anecdotes about European cities can be found on ricksteves.com and tripadvisor.com. I scraped the two sites for major cities in Europe using Selenium, Mechanize, and BeautifulSoup and combined the text from all of the articles and reviews for a given city.
@@ -35,8 +35,8 @@ The results of the exploratory data analysis were used to determine the stop wor
 Since this is an unsupervised learning model on text data, there is not a mathematical way to assess the validity of the model. I evaluated my model by creating a survey of the subset of the cities represented in my corpus, and collected results from people who have experienced those cities.
 
 ### Deployment
-<img src="images/citysense_app.png" height="300">
+<img src="images/citysense_app.png" height="350">
 
-The model is deployed as a flask web app at <a href="http://sydney.center/">sydney.center</a>. Feel free to check it out!
+The model is deployed as a flask web app at <a href="http://sydney.center/">sydney.center</a>, where users can select personality trait(s) and find the cities that are the best fit.
 
 <img src="images/flask.png" height="45">
