@@ -3,3 +3,5 @@
 *.json
 /archive
 mapimage_*.png
+/src/scraping
+/src/app/map_generator.py
