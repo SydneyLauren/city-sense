@@ -2,7 +2,7 @@ import json
 import pandas as pd
 from collections import defaultdict
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer, TfidfTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.corpus import wordnet as wn
 from nltk.tag import pos_tag
 from nltk.corpus import stopwords
@@ -32,10 +32,10 @@ def json_to_dict(filename):
             for key in item.keys():
                 unique_text = set(item[key])  # check for non-unique entries (duplicate reviews)
 
-                txt = ''.join(ch.lower() for ch in unique_text  # remove punctuation, make everything lower case
-                              if ch not in set(string.punctuation))
+                txt = ''.join(ch.lower() for ch in unique_text  # remove punctuation, make everything lower case, remove numbers
+                              if ch not in set(string.punctuation) and ch.isdigit() is False)
 
-                txt = ''.join(c for c in txt if c.isdigit() is False)  # remove numbers
+                # txt = ''.join(c for c in txt if c.isdigit() is False)  # remove numbers
 
                 txt = ' '.join(c for c in txt.split() if  # remove the city and country name from its own description
                                c.lower() != key.split(', ')[0].lower() and c.lower() != key.split(', ')[-1].lower())
@@ -156,11 +156,11 @@ def generate_basemap(cities):
     fig = plt.figure(figsize=(19, 9))
     m = Basemap(projection='stere', lon_0=5, lat_0=60.0, rsphere=6371200., llcrnrlon=-15.0,
                 urcrnrlon=60.0, llcrnrlat=32.0, urcrnrlat=56.0, resolution='l')
-    # m.drawcoastlines(linewidth=0.2)
-    # m.drawcountries(linewidth=0.2)
-    # m.drawmapboundary(fill_color='#2B3856')
+    m.drawcoastlines(linewidth=0.2)
+    m.drawcountries(linewidth=0.2)
+    m.drawmapboundary(fill_color='#2B3856')
     # fill continents, set lake color same as ocean color.
-    # m.fillcontinents(color='#786D5F', lake_color='#2B3856')
+    m.fillcontinents(color='#786D5F', lake_color='#2B3856')
     pickle.dump(m, file('../data/base_map.pkl', 'w'))
     geolocator = Nominatim()
 
@@ -175,29 +175,29 @@ def generate_basemap(cities):
 
 if __name__ == '__main__':
     # read json files into dictionary format
-    # rs_dict = json_to_dict('../data/ricksteves_articles_blogs_R01.json')
-    # ta_dict = json_to_dict('../data/europe_city_reviews2.json')
-
     rs_dict = json_to_dict('../data/ricksteves_articles_blogs_R02.json')
     ta_dict = json_to_dict('../data/ta_combined4.json')
 
-    # rs_dict = json_to_dict('scraping/')
     # combine dictionaries
     europe_dict = combine_dictionaries(rs_dict, ta_dict)
 
     # get dictionary with complete sentences maintained
-    # rs_dict_comp = json_to_sentencedict('../data/ricksteves_articles_blogs_R01.json')
-    # ta_dict_comp = json_to_sentencedict('../data/europe_city_reviews2.json')
-
     rs_dict_comp = json_to_sentencedict('../data/ricksteves_articles_blogs_R02.json')
     ta_dict_comp = json_to_sentencedict('../data/ta_combined4.json')
-    # combine dictionaries
+
+    # combine sentence dictionaries dictionaries
     europe_dict_comp = combine_dictionaries(rs_dict_comp, ta_dict_comp)
 
-    # remove cities which contain little or no text
+    # clean up. remove cities which contain little or no text
     europe_dict['Belfast, Northern Ireland'] = europe_dict['Belfast, England']
     europe_dict_comp['Belfast, Northern Ireland'] = europe_dict_comp['Belfast, England']
-    remove_cities = ['Ostrava, Czech Republic', 'Belfast, England', 'Tetovo, Macedonia', 'Lorca, Spain']
+    remove_cities = ['Reading, England', 'Ostrava, Czech Republic', 'Belfast, England', 'Tetovo, Macedonia',
+                     'Lorca, Spain', 'Derby, England', 'Exeter, England', 'Southampton, England', 'Telford, England',
+                     'Blackpool, England', 'Crawley, England', 'Carlisle, England', 'Brentwood, England',
+                     'Bury, England', 'Bognor Regis, England', 'Coventry, England', 'Worthing, England',
+                     'Slough, England', 'Sale, England', 'Bristol, England', 'Leicester, England',
+                     'Scarborough, England', 'Gloucester, England', 'Belfast, England', 'Woking, England',
+                     'Rugby, England']
     europe_dict = {key: value for key, value in europe_dict.items() if len(value) > 200 and key not in remove_cities}
     europe_dict_comp = {key: value for key, value in europe_dict_comp.items() if key in europe_dict}
 
@@ -239,8 +239,8 @@ if __name__ == '__main__':
     for lst in tokenized_corpus:
         stp_wds.extend([word for word in lst if len(word) < 3])
     stp_wds = list(set(stp_wds))
+
     # build and save vectorizer
-    # stops = []
     vectorizer = TfidfVectorizer(stop_words=stopwords.words('english') + stp_wds)
     sentence_vectorizer = TfidfVectorizer()
     with open('../data/my_vectorizer.pkl', 'wb') as f:
